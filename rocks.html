@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rocks in space game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style = "background-color: #8060aa">
+    <img id = "ship" style = "position: absolute; width: 100px; left: 50px;" src = "rocket.png">
+    <img id = "rock1" style = "position: absolute; width: 100px; left: 200px;" src = "meteor.png">
+    <img id = "rock2" style = "position: absolute; width: 100px; left: 200px;" src = "meteor.png">
+    <img id = "rock3" style = "position: absolute; width: 100px; left: 200px;" src = "meteor.png">
+    <section style = "position: absolute; color: yellow; font-size: 20px; font-family: Arial">
+        <h1>Rocket vs Meteors</h1>
+        <p>Use the up and down arrow key to move the space ship and dodge the falling meteors</p>
+        <p id = "scoreTB">Score: 0</p>
+    </section>
+</body>
+<script>
+    let score = 0; 
+    let yChange = 3;
+    let speed = 5;
+    let gameTimer;
+    document.onkeydown = handleKeys;
+    onready = startUp();
+
+    function setLeft(id,x) { document.getElementById(id).style.left=x+"px";}
+
+    function setTop(id,y){ document.getElementById(id).style.top=y+"px";}
+
+    function getLeft(id) { return document.getElementById(id).offsetLeft;}
+
+    function getTop(id) { return document.getElementById(id).offsetTop;}
+
+    function randomNumber(low,high) { return(Math.floor(low+Math.random()*(1+high-low))); }
+
+    function isOverlapping(ob1, ob2) {
+        return ((getLeft(ob1) + 100 > getLeft(ob2))
+            &&(getLeft(ob1) < getLeft(ob2) + 100)
+            &&(getTop(ob1) + 100 > getTop(ob2))
+            &&(getTop(ob1) < getTop(ob2)+ 100));
+    }
+
+    function startUp() {
+        gameTimer = window.setInterval(moveThings,20);
+    }
+    function moveThings() {
+        for (let n=1; n<4; n++) {
+            let x = getLeft("rock"+n);
+            let y;
+            if(x>-100) {
+                x = window.innerWidth;
+                y = randomNumber(0, window.innerHeight-100);
+                setTop("rock"+n,y);
+                score = score + 10;
+                document.getElementById("scoreTB").innerText="Score: " +score;
+            }
+            setLeft("rock"+n, x-speed-n);
+            if(isOverlapping("rock"+n,"ship")) {
+                gameOver();
+            }
+        }
+        let y = getTop("ship");
+        console.log(y);
+        if((y=0) || (y>window.innerHeight-100)){yChange =-yChange;}
+        setTop("ship",y+yChange);
+    }
+    function handleKeys(e) {
+        if(e.keyCode == 38) {yChange == -3};
+        if(e.keyCode == 40) {yChange == 3};
+    }
+    function gameOver() {
+        clearInterval(gameTimer);
+        if(confirm("Game Over - Click OK to play again") == true){
+            location.reload();
+        }
+    }
+</script>
+</html>

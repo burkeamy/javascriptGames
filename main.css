@@ -1,0 +1,22 @@
+body {
+    background-image: linear-gradient(to bottom, white, blueviolet);
+    height: 100%;
+}
+/* header section*/
+h1,  h3 {
+    text-align: center;
+}
+
+.book1 {
+    width: 15%;
+    padding-left: 25%
+}
+/*game container*/
+.game-contaienr {
+    display: flex;
+    justify-content: center;
+}
+.game {
+    width: 10%;
+}
+

@@ -1,0 +1,62 @@
+<!doctype <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Pop the balloons</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style = "background-color: #800080">
+    <img id = "balloon" onmousedown = "popped()"
+    src= "balloon.png" style = "position:absolute; width: 100px;
+    top: 500px; left: 500px;">
+    <p style = "color:yellow; font-size: 20px; font-family: Arial">
+        click the balloons to pop them and score a point</p>
+    <p id  = "scoreText" style = "color:yellow; font-size: 20px;
+    font-family: Arial">Score: 0</p>s
+</body>
+<script>
+    let score = 0;
+    let speed = 1;
+    let gameTimer = window.setInterval(floatUp, 25);
+
+    function setLeft(id,x){
+        document.getElementById(id).style.left=x+"px";
+    }
+    function setTop(id,y){
+        document.getElementById(id).style.top=y+"px";
+    }
+    function getLeft(id) {
+        return document.getElementById(id).offsetTop;
+    }
+    function getTop(id){
+        return document.getElementById(id).offsetTop;
+    }
+    function randomNumber(low, high) {
+        return (Math.floor(low + Math.random()*(1+high-low)));
+        console.log(randomNumber)
+    }
+
+    function floatUp() {
+        let y = getTop("balloon");
+
+        if(y< -100) {
+            gameOver();
+        }
+        setTop("balloon", y-speed);
+    }
+    function popped() {
+        score++;
+        speed++;
+        document.getElementById("scoreText").innerText="Score: " + score;
+        setLeft("balloon", randomNumber(0, window.innerWidth-100));
+        setTop("balloon", window.innerHeight);
+    }
+    function gameOver(){
+        clearInterval(gameTimer);
+        alert("Game Over! You scored: " + score);
+        location.reload();
+    }
+
+</script>
+</htm>

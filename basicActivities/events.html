@@ -1,0 +1,19 @@
+<!doctype <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function runAway(){
+            document.getElementById("ghost").style.left=Math.random*900+"px";
+            document.getElementById("ghost").style.top=Math.random*600+"px";
+        }
+    </script>
+</head>
+<body>
+    <img id="ghost" style="position:absolute;" onmouseenter="runAway()" src="ghost.png">
+</body>
+
+</html>
